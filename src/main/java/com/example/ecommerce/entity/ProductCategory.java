@@ -13,12 +13,12 @@ import jakarta.persistence.Table;
 import lombok.Data;
 
 @Entity
-@Table(name = "products_categories")
+@Table(name = "product_category")
 @Data
 public class ProductCategory {
     @EmbeddedId
     private ProductCategoryId productCategoryId;
-    
+
     @CreationTimestamp
     @Column(name = "created_at", updatable = false)
     private LocalDateTime createdAt;
@@ -28,6 +28,7 @@ public class ProductCategory {
     private LocalDateTime updatedAt;
 
     @Embeddable
+    @Data
     public static class ProductCategoryId {
         private Long productId;
         private Long categoryId;

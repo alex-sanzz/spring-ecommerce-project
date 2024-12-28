@@ -24,13 +24,17 @@ import org.hibernate.annotations.UuidGenerator;
 @Builder
 public class Product {
     @Id
-    @UuidGenerator
-    @NotBlank
-    private String id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @NotNull
+    private Long id;
 
     @Column(nullable = false)
     @NotBlank
     private String name;
+
+    @Column(nullable = false)
+    @NotBlank
+    private String description;
 
     @Column(nullable = false)
     @NotNull

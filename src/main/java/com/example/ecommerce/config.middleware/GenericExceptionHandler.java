@@ -1,5 +1,6 @@
 package com.example.ecommerce.config.middleware;
 
+
 import com.example.ecommerce.exception.BadRequestException;
 import com.example.ecommerce.exception.ResourceNotFoundException;
 import lombok.extern.slf4j.Slf4j;
@@ -9,7 +10,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
-import com.example.ecommerce.dto.response.ErrorResponse;
+import com.example.ecommerce.model.dto.response.ErrorResponse;
 
 import java.time.LocalDateTime;
 import java.util.Map;

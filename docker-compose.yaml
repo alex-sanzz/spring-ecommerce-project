@@ -1,0 +1,35 @@
+version: '3.8'
+
+services:
+  ecommerce-app:
+    build: .
+    ports: 
+      - "8080:8080"
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5431/ecommerce
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=postgres
+    depends_on:
+      - db
+    logging:
+      # The log will be json file
+      driver: "json-file"
+      options:
+        # Maximum the size of file is 200 kb, if it's more than that. Then a new log file will be created
+        max-size: "200k"
+        # Maximum is 10 files, if there is 11th file, the first file will be deleted
+        max-file: "10"
+  db:
+    image: postgres:13
+    ports:
+      - "5431:5431"
+    environment:
+      - POSTGRES_DB=ecommerce
+      - POSTGRES_USER=root
+      - POSTGRES_PASSWORD=postgres
+    volumes: 
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:
+    
