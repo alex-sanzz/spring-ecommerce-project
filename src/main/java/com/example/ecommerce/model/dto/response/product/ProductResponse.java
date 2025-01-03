@@ -36,4 +36,6 @@ public class ProductResponse {
         .categories(categories)
         .build();
     }
+
+    
 }

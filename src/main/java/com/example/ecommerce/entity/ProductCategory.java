@@ -10,11 +10,13 @@ import jakarta.persistence.Embeddable;
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
+import lombok.Builder;
 import lombok.Data;
 
 @Entity
 @Table(name = "product_category")
 @Data
+@Builder
 public class ProductCategory {
     @EmbeddedId
     private ProductCategoryId productCategoryId;
@@ -33,4 +35,6 @@ public class ProductCategory {
         private Long productId;
         private Long categoryId;
     }
+
+ 
 }

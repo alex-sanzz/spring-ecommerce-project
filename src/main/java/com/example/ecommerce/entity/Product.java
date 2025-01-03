@@ -8,8 +8,10 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -18,10 +20,14 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.hibernate.annotations.UuidGenerator;
 
+import com.example.ecommerce.model.dto.request.product.ProductRequest;
+
 @Entity
 @Table(name = "products")
 @Data
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -53,4 +59,13 @@ public class Product {
     @UpdateTimestamp
     @Column(name = "updated_at", updatable = false)
     private LocalDateTime updatedAt;
+
+    public static Product convertFromProductRequest(ProductRequest request){
+        return Product.builder().name(request.getName()).price(request.getPrice())
+        .stockQuantity(request.getStockQuantity())
+        .weight(request.getWeight())
+        .description(request.getDescription()).build();
+
+
+    }
 }
