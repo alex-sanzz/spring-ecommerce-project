@@ -3,6 +3,8 @@ package com.example.ecommerce.service.product;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import com.example.ecommerce.entity.Category;
@@ -12,6 +14,7 @@ import com.example.ecommerce.entity.ProductCategory.ProductCategoryId;
 import com.example.ecommerce.exception.ResourceNotFoundException;
 import com.example.ecommerce.model.dto.request.product.ProductRequest;
 import com.example.ecommerce.model.dto.response.category.CategoryResponse;
+import com.example.ecommerce.model.dto.response.product.PaginatedProductResponse;
 import com.example.ecommerce.model.dto.response.product.ProductResponse;
 import com.example.ecommerce.repository.CategoryRepository;
 import com.example.ecommerce.repository.ProductCategoryRepository;
@@ -31,6 +34,16 @@ public class ProductServiceImpl implements ProductService {
     public List<ProductResponse> findAll() {
         // TODO Auto-generated method stub
         return productRepository.findAll().stream().map(p -> findById(p.getId())).toList();
+    }
+
+    @Override
+    public PaginatedProductResponse findAll(PageRequest pageRequest, String name) {
+        if(name != null){
+            name = "%" + name + "%";
+        }
+        Page<Product> products = productRepository.findByPageable(pageRequest, name);
+        
+        return PaginatedProductResponse.fromProductResponsePage(products.map(p -> ProductResponse.fromProductAndCategories(p, getCategoriesByProductId(p.getId()))));
     }
 
     @Override
@@ -113,6 +126,8 @@ public class ProductServiceImpl implements ProductService {
         .name(categoryRepository.findById(c.getProductCategoryId().getCategoryId())
         .orElseThrow(() -> new ResourceNotFoundException("Category with id '" +c.getProductCategoryId().getCategoryId()+ "' is not found")).getName()).build()).toList();
     }
+
+   
 
     
 }

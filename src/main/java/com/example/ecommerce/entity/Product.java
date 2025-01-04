@@ -31,7 +31,6 @@ import com.example.ecommerce.model.dto.request.product.ProductRequest;
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @NotNull
     private Long id;
 
     @Column(nullable = false)

@@ -19,6 +19,7 @@ public class ProductResponse {
     private Long productId;
     private String name;
     private BigDecimal price;
+    private BigDecimal weight;
     private String description;
     private Integer stockQuantity;
     private LocalDateTime createdAt;
@@ -30,6 +31,7 @@ public class ProductResponse {
         .name(product.getName())
         .description(product.getDescription())
         .price(product.getPrice())
+        .weight(product.getWeight())
         .stockQuantity(product.getStockQuantity())
         .createdAt(product.getCreatedAt())
         .updatedAt(product.getUpdatedAt())
